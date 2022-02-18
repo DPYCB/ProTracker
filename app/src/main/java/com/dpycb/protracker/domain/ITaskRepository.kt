@@ -7,4 +7,5 @@ interface ITaskRepository {
     fun getTasksFlow(): Flowable<List<Task>>
     fun addTasks(tasks: List<Task>)
     fun updateTask(task: Task)
+    fun removeAllTasks(): Any
 }

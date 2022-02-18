@@ -11,6 +11,9 @@ interface TaskDao {
     @Query("SELECT * FROM task WHERE uid = :uid LIMIT 1")
     fun getTaskById(uid: Long): Task
 
+    @Query("DELETE FROM task")
+    fun clearTable()
+
     @Insert
     fun addTasks(tasks: List<Task>)
 

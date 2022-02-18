@@ -10,4 +10,5 @@ class TasksRepository @Inject constructor(
     override fun getTasksFlow() = localDataSource.getTasksFlow()
     override fun addTasks(tasks: List<Task>) =  localDataSource.addTasks(tasks)
     override fun updateTask(task: Task) = localDataSource.updateTask(task)
+    override fun removeAllTasks() = localDataSource.removeAllTasks()
 }

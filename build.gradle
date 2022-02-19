@@ -30,7 +30,7 @@ ext {
     room = "androidx.room:room-runtime:2.2.2"
     room_rxJava = "androidx.room:room-rxjava2:2.2.2"
     room_compiler = "androidx.room:room-compiler:2.2.2"
-    arch_persistence_room_compiler = "android.arch.persistence.room:compiler:1.1.1"
+    arch_persistence_room_compiler = 'androidx.room:room-compiler:2.0.0'
 
     appcompat = 'androidx.appcompat:appcompat:1.4.1'
     material_design = 'com.google.android.material:material:1.5.0'

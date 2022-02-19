@@ -23,17 +23,19 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var activityComponent: MainActivityComponent? = null
+    private lateinit var binding: ActivityMainBinding
 
     @Inject
     lateinit var injector: DispatchingAndroidInjector<Fragment>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        activityComponent = DaggerMainActivityComponent.builder().appComponent((application as ProTrackerApp).getAppComponent()).build()
+        activityComponent = DaggerMainActivityComponent.builder().appComponent((application as ProTrackerApp)
+            .getAppComponent()).build()
         activityComponent?.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)

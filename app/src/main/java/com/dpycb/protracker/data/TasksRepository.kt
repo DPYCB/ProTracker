@@ -1,9 +1,11 @@
 package com.dpycb.protracker.data
 
+import com.dpycb.protracker.di.ActivityScope
 import com.dpycb.protracker.domain.ITaskRepository
 import io.reactivex.Flowable
 import javax.inject.Inject
 
+@ActivityScope
 class TasksRepository @Inject constructor(
     private val localDataSource: LocalTasksDataSource
 ) : ITaskRepository {

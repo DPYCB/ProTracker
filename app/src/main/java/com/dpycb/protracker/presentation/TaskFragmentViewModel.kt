@@ -1,6 +1,7 @@
 package com.dpycb.protracker.presentation
 
 import androidx.lifecycle.ViewModel
+import com.dpycb.protracker.Utils
 import com.dpycb.protracker.data.Task
 import com.dpycb.protracker.domain.ITaskRepository
 import io.reactivex.Flowable
@@ -33,23 +34,6 @@ class TaskFragmentViewModel @Inject constructor(
             }
     }
 
-    fun addRandomTask() {
-        tasksRepository.addTasks(listOf(
-            Task(
-                uid = (0..10000L).random(),
-                progress = (0..100).random(),
-                name = listOf(
-                    "Попробовать поесть",
-                    "Сходить покакать",
-                    "Покурить кальян",
-                    "Полежать",
-                    "Кайфануть",
-                    "ФлЭксить"
-                ).random()
-            )
-        ))
-    }
-
     fun removeAllTasks() {
         tasksRepository.removeAllTasks()
     }
@@ -59,7 +43,7 @@ class TaskFragmentViewModel @Inject constructor(
             this.uid,
             "${this.progress}%",
             this.name,
-            this.endDate.toString()
+            Utils.formatDateToString(this.endDate)
         )
     }
 }

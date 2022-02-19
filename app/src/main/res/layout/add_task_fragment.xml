@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="12dp"
+    tools:layout_gravity="bottom">
+
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/task_label"
+        android:text="Название задачи"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/task_name_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Введите название"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/task_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/start_date_label"
+        app:layout_constraintTop_toBottomOf="@id/task_name_edit"
+        app:layout_constraintStart_toStartOf="@id/start_date_edit"
+        app:layout_constraintEnd_toEndOf="@id/start_date_edit"
+        android:layout_marginTop="8dp"
+        android:text="Дата начала"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/start_date_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+        android:hint="Выберите дату"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintEnd_toStartOf="@id/end_date_edit"
+        app:layout_constraintTop_toBottomOf="@id/start_date_label"
+        app:layout_constraintBottom_toTopOf="@id/btn_add_task"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/end_date_label"
+        app:layout_constraintTop_toBottomOf="@id/task_name_edit"
+        app:layout_constraintStart_toStartOf="@id/end_date_edit"
+        app:layout_constraintEnd_toEndOf="@id/end_date_edit"
+        android:layout_marginTop="8dp"
+        android:text="Дата начала"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/end_date_edit"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Выберите дату"
+        app:layout_constraintBottom_toTopOf="@id/btn_add_task"
+        app:layout_constraintStart_toEndOf="@id/start_date_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/end_date_label" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_task"
+        android:text="Добавить задачу"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

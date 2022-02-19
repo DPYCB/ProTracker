@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dpycb.protracker.R
 import com.dpycb.protracker.databinding.TaskItemViewBinding
 
-class TasksAdapter : ListAdapter<TaskViewState,TaskItemViewHolder>(
+class TasksAdapter(
+    private val onItemClick: (Long) -> Unit
+) : ListAdapter<TaskViewState,TaskItemViewHolder>(
     object : DiffUtil.ItemCallback<TaskViewState>() {
         override fun areItemsTheSame(oldItem: TaskViewState, newItem: TaskViewState): Boolean {
             return oldItem.taskId == newItem.taskId
@@ -18,13 +20,13 @@ class TasksAdapter : ListAdapter<TaskViewState,TaskItemViewHolder>(
         override fun areContentsTheSame(oldItem: TaskViewState, newItem: TaskViewState): Boolean {
             return oldItem.title == newItem.title
         }
-
     }
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
         return TaskItemViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.task_item_view, parent, false)
+                .inflate(R.layout.task_item_view, parent, false),
+            onItemClick
         )
     }
 
@@ -33,11 +35,15 @@ class TasksAdapter : ListAdapter<TaskViewState,TaskItemViewHolder>(
     }
 }
 
-class TaskItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+class TaskItemViewHolder(
+    private val view: View,
+    private val onItemClick: (Long) -> Unit
+) : RecyclerView.ViewHolder(view) {
     private val binding = TaskItemViewBinding.bind(itemView)
 
     fun bind(item: TaskViewState) {
         binding.apply {
+            root.setOnClickListener { onItemClick(item.taskId) }
             taskProgress.text = item.progress
             taskTitle.text = item.title
             taskEndDate.text = item.endDate

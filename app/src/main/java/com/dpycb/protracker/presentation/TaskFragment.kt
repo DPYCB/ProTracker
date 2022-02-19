@@ -17,7 +17,7 @@ import javax.inject.Inject
 class TaskFragment : Fragment(R.layout.task_fragment) {
     private val binding by viewBinding(TaskFragmentBinding::bind)
     private val compositeDisposable = CompositeDisposable()
-    private val adapter = TasksAdapter()
+    private val adapter = TasksAdapter(::showTaskDetails)
 
     @Inject
     lateinit var viewModel: TaskFragmentViewModel
@@ -30,7 +30,7 @@ class TaskFragment : Fragment(R.layout.task_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            btnAddTask.setOnClickListener { addRandomTask() }
+            btnAddTask.setOnClickListener { addTask() }
             btnAddTask.setOnLongClickListener { removeAllTasks() }
             tasksList.adapter = adapter
         }
@@ -66,11 +66,11 @@ class TaskFragment : Fragment(R.layout.task_fragment) {
         return true
     }
 
-    private fun addRandomTask() {
-        //TODO implement properly
-        Maybe.just(true)
-            .subscribeOn(Schedulers.io())
-            .subscribe { viewModel.addRandomTask() }
-            .let(compositeDisposable::add)
+    private fun showTaskDetails(taskId: Long) {
+        TaskDetailsFragment.create(taskId).show(parentFragmentManager, TaskDetailsFragment.TAG)
+    }
+
+    private fun addTask() {
+        AddTaskBottomSheet().show(parentFragmentManager, AddTaskBottomSheet.TAG)
     }
 }

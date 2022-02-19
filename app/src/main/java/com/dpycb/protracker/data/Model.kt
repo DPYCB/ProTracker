@@ -5,10 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Task(
-    @PrimaryKey
-    val uid: Long,
-    val name: String = "",
-    val startDate: Long = 0L,
-    val endDate: Long = 0L,
-    val progress: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    var uid: Long = 0L,
+    var name: String = "",
+    var startDate: Long = 0L,
+    var endDate: Long = 0L,
+    var progress: Int = 0,
 )

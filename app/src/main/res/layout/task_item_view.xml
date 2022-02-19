@@ -19,11 +19,12 @@
 
     <TextView
         android:id="@+id/task_title"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="48dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:layout_marginBottom="8dp"
         app:layout_constraintStart_toEndOf="@id/task_progress"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/task_end_date"
@@ -31,11 +32,10 @@
 
     <TextView
         android:id="@+id/task_end_date"
-        android:layout_marginStart="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/task_progress"
+        app:layout_constraintStart_toStartOf="@id/task_title"
         app:layout_constraintTop_toBottomOf="@id/task_title"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="18,06,1999" />

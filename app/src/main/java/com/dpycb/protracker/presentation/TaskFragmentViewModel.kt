@@ -23,19 +23,14 @@ class TaskFragmentViewModel @Inject constructor(
         return tasksRepository
             .getTasksFlow()
             .map { tasks ->
-                if (tasks.isNotEmpty()) {
-                    var totalProgress = 0
-                    tasks.forEach { totalProgress += it.progress }
-                    "Выполнено ${totalProgress/tasks.size}%"
-                }
-                else {
-                    "Выполнено 0"
-                }
+                var totalProgress = 0
+                tasks.forEach { totalProgress += it.progress }
+                "Выполнено ${totalProgress/tasks.size.coerceAtLeast(1)}%"
             }
     }
 
-    fun removeAllTasks() {
-        tasksRepository.removeAllTasks()
+    fun removeTask(taskId: Long) {
+        tasksRepository.removeTask(taskId)
     }
 
     private fun Task.mapToViewState(): TaskViewState {

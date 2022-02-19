@@ -8,4 +8,5 @@ interface ITaskRepository {
     fun addTasks(tasks: List<Task>)
     fun updateTask(task: Task)
     fun removeAllTasks(): Any
+    fun removeTask(taskId: Long)
 }

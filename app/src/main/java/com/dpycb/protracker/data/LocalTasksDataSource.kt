@@ -9,4 +9,5 @@ class LocalTasksDataSource @Inject constructor(
     fun addTasks(tasks: List<Task>) = taskDao.addTasks(tasks)
     fun updateTask(task: Task) = taskDao.updateTask(task)
     fun removeAllTasks() = taskDao.clearTable()
+    fun removeTask(taskId: Long) = taskDao.removeTask(taskId)
 }

@@ -7,6 +7,7 @@ import android.view.View
 import com.dpycb.protracker.R
 import com.dpycb.protracker.databinding.TaskFragmentBinding
 import com.dpycb.protracker.utils.viewBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,7 +18,10 @@ import javax.inject.Inject
 class TaskFragment : Fragment(R.layout.task_fragment) {
     private val binding by viewBinding(TaskFragmentBinding::bind)
     private val compositeDisposable = CompositeDisposable()
-    private val adapter = TasksAdapter(::showTaskDetails)
+    private val adapter = TasksAdapter(
+        ::showTaskDetails,
+        ::removeTask
+    )
 
     @Inject
     lateinit var viewModel: TaskFragmentViewModel
@@ -31,7 +35,6 @@ class TaskFragment : Fragment(R.layout.task_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             btnAddTask.setOnClickListener { addTask() }
-            btnAddTask.setOnLongClickListener { removeAllTasks() }
             tasksList.adapter = adapter
         }
     }
@@ -58,19 +61,27 @@ class TaskFragment : Fragment(R.layout.task_fragment) {
         compositeDisposable.clear()
     }
 
-    private fun removeAllTasks(): Boolean {
-        Maybe.just(true)
-            .subscribeOn(Schedulers.io())
-            .subscribe { viewModel.removeAllTasks() }
-            .let(compositeDisposable::add)
-        return true
-    }
-
     private fun showTaskDetails(taskId: Long) {
         TaskDetailsFragment.create(taskId).show(parentFragmentManager, TaskDetailsFragment.TAG)
     }
 
+    private fun removeTask(taskId: Long): Boolean {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage("Точно хочешь удалить задачу, ленивая ты жопа?)")
+            .setPositiveButton("Да") { _, _ ->
+                Maybe.just(true)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe { viewModel.removeTask(taskId) }
+                    .let(compositeDisposable::add)
+            }
+            .setNegativeButton("Нет") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+        return true
+    }
+
     private fun addTask() {
-        AddTaskBottomSheet().show(parentFragmentManager, AddTaskBottomSheet.TAG)
+        AddTaskFragment().show(parentFragmentManager, AddTaskFragment.TAG)
     }
 }

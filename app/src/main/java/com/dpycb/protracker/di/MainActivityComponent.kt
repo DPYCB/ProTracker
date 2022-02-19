@@ -1,10 +1,6 @@
 package com.dpycb.protracker.di
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.room.Room
 import com.dpycb.protracker.data.RoomDb
 import com.dpycb.protracker.data.TaskDao
 import com.dpycb.protracker.data.TasksRepository
@@ -14,8 +10,6 @@ import dagger.*
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import dagger.multibindings.IntoMap
-import javax.inject.Inject
-import javax.inject.Provider
 
 @ActivityScope
 @Component(
@@ -39,7 +33,7 @@ abstract class TaskFragmentModule {
     abstract fun getTaskFragment(): TaskFragment
 
     @ContributesAndroidInjector
-    abstract fun getAddTaskFragment(): AddTaskBottomSheet
+    abstract fun getAddTaskFragment(): AddTaskFragment
 
     @ContributesAndroidInjector
     abstract fun getTaskDetailsFragment(): TaskDetailsFragment

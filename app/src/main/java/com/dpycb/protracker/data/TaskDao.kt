@@ -14,6 +14,9 @@ interface TaskDao {
     @Query("DELETE FROM task")
     fun clearTable()
 
+    @Query("DELETE FROM task WHERE uid = :taskId")
+    fun removeTask(taskId: Long)
+
     @Insert
     fun addTasks(tasks: List<Task>)
 

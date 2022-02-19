@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class AddTaskBottomSheet : BottomSheetDialogFragment() {
+class AddTaskFragment : BottomSheetDialogFragment() {
     companion object {
         const val TAG = "AddTaskBottomSheet"
     }

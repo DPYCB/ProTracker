@@ -24,7 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tasks_title"
+        app:layout_constraintBottom_toBottomOf="@id/tasks_title"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Выполеннео многа" />
 

@@ -61,8 +61,10 @@ class AddTaskViewModel @Inject constructor(
             ?.filter { it.weight in (1..10) }
             ?.map {
                 Goal(
+                    uid = it.id,
                     name = it.name,
-                    weight = it.weight
+                    weight = it.weight,
+                    status = it.status
                 )
             } ?: listOf()
     }

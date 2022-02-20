@@ -72,27 +72,17 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
                     )
                 }.let(compositeDisposable::add)
         }
-    }
 
-    override fun onStart() {
-        super.onStart()
         viewModel
             .getTaskFlow(taskId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::updateTaskInfo)
             .let(compositeDisposable::add)
-
-        viewModel
-            .getGoalsFlow(taskId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(adapter::submitList)
-            .let(compositeDisposable::add)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
         compositeDisposable.dispose()
     }
 
@@ -103,6 +93,8 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
             endDate.text = Utils.formatDateToString(task.endDate)
             progress.text = "${task.progress} %"
         }
+        val goalViewStates = viewModel.getGoalsViewState(task.goals)
+        adapter.submitList(goalViewStates)
     }
 
     private fun editGoal(goalId: Int) {

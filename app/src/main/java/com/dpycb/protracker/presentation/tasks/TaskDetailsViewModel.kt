@@ -18,10 +18,6 @@ class TaskDetailsViewModel @Inject constructor(
         }
     }
 
-    fun getGoalsFlow(taskId: Long): Flowable<List<GoalViewState>> {
-        return getTaskFlow(taskId).map { it.goals.toGoalViewStates() }
-    }
-
     fun editGoal(taskId: Long, goal: GoalViewState) {
         val task = tasksRepository.getTask(taskId)
         val newGoals = task.goals.toMutableList()
@@ -34,15 +30,12 @@ class TaskDetailsViewModel @Inject constructor(
         return tasksRepository.getTask(taskId).goals.find { it.uid == goalId }?.toGoalViewState()
     }
 
+    fun getGoalsViewState(goals: List<Goal>): List<GoalViewState> {
+        return goals.toGoalViewStates()
+    }
+
     private fun List<Goal>.toGoalViewStates(): List<GoalViewState> {
-        return this.map {
-            GoalViewState(
-                it.uid,
-                it.name,
-                it.weight,
-                it.status
-            )
-        }
+        return this.map { it.toGoalViewState() }
     }
 
     private fun Goal.toGoalViewState(): GoalViewState {

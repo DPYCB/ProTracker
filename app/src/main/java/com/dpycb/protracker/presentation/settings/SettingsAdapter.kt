@@ -1,4 +1,4 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker.presentation.settings
 
 import android.view.LayoutInflater
 import android.view.View

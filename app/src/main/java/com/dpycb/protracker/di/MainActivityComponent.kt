@@ -1,11 +1,13 @@
 package com.dpycb.protracker.di
 
 import androidx.lifecycle.ViewModel
+import com.dpycb.protracker.MainActivity
 import com.dpycb.protracker.data.RoomDb
 import com.dpycb.protracker.data.TaskDao
 import com.dpycb.protracker.data.TasksRepository
 import com.dpycb.protracker.domain.ITaskRepository
-import com.dpycb.protracker.presentation.*
+import com.dpycb.protracker.presentation.settings.SettingsFragment
+import com.dpycb.protracker.presentation.tasks.*
 import dagger.*
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule

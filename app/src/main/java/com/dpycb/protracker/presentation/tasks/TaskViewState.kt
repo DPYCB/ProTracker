@@ -1,4 +1,4 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker.presentation.tasks
 
 data class TaskViewState(
     val taskId: Long,

@@ -1,11 +1,10 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker.presentation.tasks
 
 import androidx.lifecycle.ViewModel
-import com.dpycb.protracker.Utils
+import com.dpycb.protracker.utils.Utils
 import com.dpycb.protracker.data.Task
 import com.dpycb.protracker.domain.ITaskRepository
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class TaskFragmentViewModel @Inject constructor(

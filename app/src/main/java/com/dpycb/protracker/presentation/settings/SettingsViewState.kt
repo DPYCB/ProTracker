@@ -1,4 +1,4 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker.presentation.settings
 
 data class SettingsViewState(
     val iconResId: Int,

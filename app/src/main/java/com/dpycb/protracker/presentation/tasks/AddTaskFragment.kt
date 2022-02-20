@@ -1,4 +1,4 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker.presentation.tasks
 
 import android.content.Context
 import android.os.Bundle
@@ -7,20 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.dpycb.protracker.R
-import com.dpycb.protracker.Utils
-import com.dpycb.protracker.data.Task
+import com.dpycb.protracker.utils.Utils
 import com.dpycb.protracker.databinding.AddTaskFragmentBinding
-import com.dpycb.protracker.domain.ITaskRepository
+import com.dpycb.protracker.databinding.EditGoalDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Flowable
-import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 class AddTaskFragment : BottomSheetDialogFragment() {
@@ -28,7 +25,12 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         const val TAG = "AddTaskBottomSheet"
     }
     private var binding: AddTaskFragmentBinding? = null
+    private var dialogBinding: EditGoalDialogBinding? = null
     private val compositeDisposable = CompositeDisposable()
+    private val adapter = NewGoalsAdapter(
+        ::editGoal,
+        ::addGoal
+    )
     private var startDate = 0L
     private var endDate = 0L
 
@@ -47,6 +49,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.add_task_fragment, container)
         binding = AddTaskFragmentBinding.bind(view)
+        dialogBinding = EditGoalDialogBinding.inflate(inflater)
         return binding?.root
     }
 
@@ -69,8 +72,26 @@ class AddTaskFragment : BottomSheetDialogFragment() {
                 }
                 picker.show(parentFragmentManager, "DATE_PICKER")
             }
+            goalsList.adapter = adapter
             btnAddTask.setOnClickListener { addNewTask() }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel
+            .getGoalsFlow()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(adapter::submitList)
+            .let(compositeDisposable::add)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+        dialogBinding = null
+        compositeDisposable.dispose()
     }
 
     private fun getDatePicker(): MaterialDatePicker<Long> {
@@ -78,6 +99,35 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             .datePicker()
             .setTitleText("Выберите дату")
             .build()
+    }
+
+    private fun editGoal(goalId: Int) {
+        //TODO add functionality
+//        MaterialAlertDialogBuilder(requireContext())
+//            .setView(dialogBinding?.root)
+//            .setPositiveButton("Изменить") { dialog, _ ->
+//                val goalItem = GoalViewState(
+//                    goalId,
+//                    dialogBinding?.goalNameEdit?.text.toString(),
+//                    dialogBinding?.weightSlider?.value?.toInt() ?: 0
+//                )
+//                viewModel.editGoal(goalItem)
+//                dialog.dismiss()
+//            }
+//            .show()
+    }
+
+    private fun addGoal() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogBinding?.root)
+            .setPositiveButton("Добавить") { dialog, _ ->
+                viewModel.addNewGoal(
+                    dialogBinding?.goalNameEdit?.text.toString(),
+                    dialogBinding?.weightSlider?.value?.toInt() ?: 0
+                )
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun addNewTask() {
@@ -108,11 +158,5 @@ class AddTaskFragment : BottomSheetDialogFragment() {
                 dismiss()
             }
             .let(compositeDisposable::add)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
-        compositeDisposable.dispose()
     }
 }

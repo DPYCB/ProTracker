@@ -1,4 +1,4 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker.presentation.tasks
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,7 @@ import com.dpycb.protracker.databinding.TaskItemViewBinding
 class TasksAdapter(
     private val onItemClick: (Long) -> Unit,
     private val onItemLongClick: (Long) -> Boolean
-) : ListAdapter<TaskViewState,TaskItemViewHolder>(
+) : ListAdapter<TaskViewState, TaskItemViewHolder>(
     object : DiffUtil.ItemCallback<TaskViewState>() {
         override fun areItemsTheSame(oldItem: TaskViewState, newItem: TaskViewState): Boolean {
             return oldItem.taskId == newItem.taskId

@@ -7,7 +7,7 @@
     android:paddingHorizontal="48dp"
     android:paddingTop="48dp"
     android:paddingBottom="24dp"
-    tools:context=".presentation.TaskFragment">
+    tools:context=".presentation.tasks.TaskFragment">
 
     <TextView
         android:id="@+id/tasks_title"

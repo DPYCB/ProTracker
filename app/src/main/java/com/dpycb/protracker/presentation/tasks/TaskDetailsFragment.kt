@@ -1,11 +1,10 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker.presentation.tasks
 
-import android.app.Activity
 import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.dpycb.protracker.R
-import com.dpycb.protracker.Utils
+import com.dpycb.protracker.utils.Utils
 import com.dpycb.protracker.data.Task
 import com.dpycb.protracker.databinding.TaskDetailsFragmentBinding
 import com.dpycb.protracker.utils.viewBinding

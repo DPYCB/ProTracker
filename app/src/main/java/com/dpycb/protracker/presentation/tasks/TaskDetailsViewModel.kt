@@ -1,8 +1,7 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker.presentation.tasks
 
 import androidx.lifecycle.ViewModel
 import com.dpycb.protracker.data.Task
-import com.dpycb.protracker.data.TasksRepository
 import com.dpycb.protracker.domain.ITaskRepository
 import io.reactivex.Flowable
 import javax.inject.Inject

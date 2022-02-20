@@ -1,4 +1,4 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker.presentation.settings
 
 import android.content.Context
 import android.os.Bundle

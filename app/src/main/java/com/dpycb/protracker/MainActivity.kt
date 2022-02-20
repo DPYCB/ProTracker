@@ -1,4 +1,4 @@
-package com.dpycb.protracker.presentation
+package com.dpycb.protracker
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar

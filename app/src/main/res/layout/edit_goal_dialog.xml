@@ -10,12 +10,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="Введите цель"
+        app:layout_constraintEnd_toStartOf="@id/status_spinner"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/status_spinner"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/goal_name_edit"
         app:layout_constraintTop_toTopOf="@id/goal_name_edit"
         app:layout_constraintBottom_toBottomOf="@id/goal_name_edit"
         android:layout_width="wrap_content"

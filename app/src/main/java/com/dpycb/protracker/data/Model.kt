@@ -24,7 +24,7 @@ data class Goal(
     val status: GoalStatus = GoalStatus.NOT_STARTED
 )
 
-enum class GoalStatus(name: String) {
+enum class GoalStatus(val statusName: String) {
     NOT_STARTED("Не начато"),
     IN_PROGRESS("В процессе"),
     COMPLETED("Завершено")

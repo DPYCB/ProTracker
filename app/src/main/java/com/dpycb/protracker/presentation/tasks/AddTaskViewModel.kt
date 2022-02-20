@@ -36,7 +36,7 @@ class AddTaskViewModel @Inject constructor(
             weight = weight,
             status = status
         )
-        val resultList = listOf(newGoal).plus(currentList).sortedByDescending { it.id }
+        val resultList = listOf(newGoal).plus(currentList).sortedBy { it.id }
         goalsProcessor.onNext(resultList)
     }
 
@@ -44,7 +44,7 @@ class AddTaskViewModel @Inject constructor(
         val currentList = goalsProcessor.value?.toMutableList() ?: return
         currentList.removeIf { it.id == editedGoal.id }
         currentList.add(editedGoal)
-        goalsProcessor.onNext(currentList.sortedByDescending { it.id })
+        goalsProcessor.onNext(currentList.sortedBy { it.id })
     }
 
     fun getGoalsFlow(): Flowable<List<GoalViewState>> {

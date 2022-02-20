@@ -13,6 +13,7 @@ import com.dpycb.protracker.databinding.TaskDetailsFragmentBinding
 import com.dpycb.protracker.utils.Utils
 import com.dpycb.protracker.utils.viewBinding
 import dagger.android.support.AndroidSupportInjection
+import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -49,7 +50,7 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
         binding.apply {
             goalsList.adapter = adapter
         }
-         taskId = arguments?.getLong(BUNDLE_TASK_ID) ?: 0L
+        taskId = arguments?.getLong(BUNDLE_TASK_ID) ?: 0L
 
         setFragmentResultListener(NewGoalDialogFragment.EDIT_GOAL_REQUEST) { requestKey, bundle ->
             val goalId = bundle.getInt(NewGoalDialogFragment.BUNDLE_GOAL_ID)
@@ -57,15 +58,19 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
             val goalWeight = bundle.getInt(NewGoalDialogFragment.BUNDLE_GOAL_WEIGHT)
             val goalStatus = bundle.getString(NewGoalDialogFragment.BUNDLE_GOAL_STATUS)
                 ?: GoalStatus.NOT_STARTED.name
-            viewModel.editGoal(
-                taskId,
-                GoalViewState(
-                    id = goalId,
-                    name = goalName,
-                    weight = goalWeight,
-                    status = GoalStatus.valueOf(goalStatus)
-                )
-            )
+            Maybe.just(true)
+                .subscribeOn(Schedulers.io())
+                .subscribe{
+                    viewModel.editGoal(
+                        taskId,
+                        GoalViewState(
+                            id = goalId,
+                            name = goalName,
+                            weight = goalWeight,
+                            status = GoalStatus.valueOf(goalStatus)
+                        )
+                    )
+                }.let(compositeDisposable::add)
         }
     }
 
@@ -101,12 +106,20 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
     }
 
     private fun editGoal(goalId: Int) {
-        val currentGoal = viewModel.getGoalById(taskId, goalId)
-        NewGoalDialogFragment.create(
-            goalId,
-            currentGoal?.name ?: "",
-            currentGoal?.weight ?: 1,
-            currentGoal?.status?.name ?: GoalStatus.NOT_STARTED.name
-        ).show(parentFragmentManager, NewGoalDialogFragment.TAG)
+        Maybe.just(true)
+            .subscribeOn(Schedulers.io())
+            .flatMap {
+                Maybe.just(viewModel.getGoalById(taskId, goalId))
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { currentGoal ->
+                NewGoalDialogFragment.create(
+                    goalId,
+                    currentGoal?.name ?: "",
+                    currentGoal?.weight ?: 1,
+                    currentGoal?.status?.name ?: GoalStatus.NOT_STARTED.name
+                ).show(parentFragmentManager, NewGoalDialogFragment.TAG)
+            }
+            .let(compositeDisposable::add)
     }
 }

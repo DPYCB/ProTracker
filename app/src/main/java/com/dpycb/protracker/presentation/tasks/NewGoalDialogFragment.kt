@@ -47,7 +47,7 @@ class NewGoalDialogFragment : DialogFragment(R.layout.edit_goal_dialog) {
                 android.R.layout.simple_spinner_item,
                 GoalStatus.values().map(GoalStatus::name),
             )
-            statusSpinner.setSelection(GoalStatus.valueOf(setGoalName).ordinal)
+            statusSpinner.setSelection(GoalStatus.valueOf(setGoalStatus).ordinal)
             btnApply.setOnClickListener {
                 setFragmentResult(
                     EDIT_GOAL_REQUEST, bundleOf(

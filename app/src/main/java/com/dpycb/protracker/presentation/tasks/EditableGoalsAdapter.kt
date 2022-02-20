@@ -56,7 +56,8 @@ class NewGoalViewHolder(
             goalName.text = item.name
             weight.text = item.weight.toString()
             weight.isVisible = item.weight in (1..10)
-            statusLabel.text = item.status.name
+            statusLabel.text = item.status.statusName
+            statusLabel.isVisible = item.weight in (1..10)
         }
     }
 }

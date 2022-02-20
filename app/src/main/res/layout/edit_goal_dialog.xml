@@ -9,8 +9,15 @@
         android:id="@+id/goal_name_edit"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:hint="Введите цель"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/status_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/goal_name_edit"
+        app:layout_constraintBottom_toBottomOf="@id/goal_name_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -28,12 +35,24 @@
     <com.google.android.material.slider.Slider
         android:id="@+id/weight_slider"
         app:layout_constraintTop_toBottomOf="@id/weight_label"
+        app:layout_constraintBottom_toTopOf="@id/btn_apply"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="8dp"
         android:valueFrom="1.0"
         android:valueTo="10.0"
         android:stepSize="1.0"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_apply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:text="Добавить"
+        app:layout_constraintTop_toBottomOf="@id/weight_slider"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

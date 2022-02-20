@@ -28,4 +28,14 @@
         android:layout_height="wrap_content"
         tools:text="Важность 10" />
 
+    <TextView
+        android:id="@+id/status_label"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/goal_name"
+        app:layout_constraintEnd_toStartOf="@id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Статус: Не начато" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

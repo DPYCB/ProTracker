@@ -2,6 +2,8 @@ package com.dpycb.protracker.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.google.gson.Gson
 
 @Entity
 data class Task(
@@ -14,7 +16,6 @@ data class Task(
     var goals: List<Goal> = listOf(),
 )
 
-@Entity
 data class Goal(
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0,
@@ -23,8 +24,16 @@ data class Goal(
     val status: GoalStatus = GoalStatus.NOT_STARTED
 )
 
-enum class GoalStatus {
-    NOT_STARTED,
-    IN_PROGRESS,
-    COMPLETED
+enum class GoalStatus(name: String) {
+    NOT_STARTED("Не начато"),
+    IN_PROGRESS("В процессе"),
+    COMPLETED("Завершено")
+}
+
+class EntityConverters {
+    @TypeConverter
+    fun goalsToGson(goals: List<Goal>) = Gson().toJson(goals)
+
+    @TypeConverter
+    fun gsonToGoals(value: String) = Gson().fromJson(value, Array<Goal>::class.java).toList()
 }

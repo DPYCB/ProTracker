@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.setFragmentResultListener
 import com.dpycb.protracker.R
-import com.dpycb.protracker.utils.Utils
+import com.dpycb.protracker.data.GoalStatus
 import com.dpycb.protracker.databinding.AddTaskFragmentBinding
-import com.dpycb.protracker.databinding.EditGoalDialogBinding
+import com.dpycb.protracker.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,11 +23,12 @@ import javax.inject.Inject
 class AddTaskFragment : BottomSheetDialogFragment() {
     companion object {
         const val TAG = "AddTaskBottomSheet"
+        const val NEW_GOAL_ID = Int.MAX_VALUE
     }
+
     private var binding: AddTaskFragmentBinding? = null
-    private var dialogBinding: EditGoalDialogBinding? = null
     private val compositeDisposable = CompositeDisposable()
-    private val adapter = NewGoalsAdapter(
+    private val adapter = GoalsAdapter(
         ::editGoal,
         ::addGoal
     )
@@ -42,6 +43,10 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         super.onAttach(context)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,7 +54,6 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.add_task_fragment, container)
         binding = AddTaskFragmentBinding.bind(view)
-        dialogBinding = EditGoalDialogBinding.inflate(inflater)
         return binding?.root
     }
 
@@ -75,6 +79,25 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             goalsList.adapter = adapter
             btnAddTask.setOnClickListener { addNewTask() }
         }
+
+        setFragmentResultListener(NewGoalDialogFragment.EDIT_GOAL_REQUEST) { requestKey, bundle ->
+            val goalId = bundle.getInt(NewGoalDialogFragment.BUNDLE_GOAL_ID, NEW_GOAL_ID)
+            val goalName = bundle.getString(NewGoalDialogFragment.BUNDLE_GOAL_NAME) ?: ""
+            val goalWeight = bundle.getInt(NewGoalDialogFragment.BUNDLE_GOAL_WEIGHT)
+            val goalStatusString = bundle.getString(NewGoalDialogFragment.BUNDLE_GOAL_STATUS) ?: GoalStatus.NOT_STARTED.name
+            val goalStatus = GoalStatus.valueOf(goalStatusString)
+            when (goalId == NEW_GOAL_ID) {
+                true -> viewModel.addNewGoal(goalName, goalWeight, goalStatus)
+                else -> viewModel.editGoal(
+                    GoalViewState(
+                        id = goalId,
+                        name = goalName,
+                        weight = goalWeight,
+                        status = goalStatus
+                    )
+                )
+            }
+        }
     }
 
     override fun onStart() {
@@ -90,7 +113,6 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-        dialogBinding = null
         compositeDisposable.dispose()
     }
 
@@ -102,32 +124,19 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     }
 
     private fun editGoal(goalId: Int) {
-        //TODO add functionality
-//        MaterialAlertDialogBuilder(requireContext())
-//            .setView(dialogBinding?.root)
-//            .setPositiveButton("Изменить") { dialog, _ ->
-//                val goalItem = GoalViewState(
-//                    goalId,
-//                    dialogBinding?.goalNameEdit?.text.toString(),
-//                    dialogBinding?.weightSlider?.value?.toInt() ?: 0
-//                )
-//                viewModel.editGoal(goalItem)
-//                dialog.dismiss()
-//            }
-//            .show()
+        val currentGoal = viewModel.getGoalById(goalId)
+        NewGoalDialogFragment.create(
+            goalId,
+            currentGoal?.name ?: "",
+            currentGoal?.weight ?: 1,
+            currentGoal?.status?.name ?: GoalStatus.NOT_STARTED.name
+        ).show(parentFragmentManager, NewGoalDialogFragment.TAG)
     }
 
     private fun addGoal() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setView(dialogBinding?.root)
-            .setPositiveButton("Добавить") { dialog, _ ->
-                viewModel.addNewGoal(
-                    dialogBinding?.goalNameEdit?.text.toString(),
-                    dialogBinding?.weightSlider?.value?.toInt() ?: 0
-                )
-                dialog.dismiss()
-            }
-            .show()
+        NewGoalDialogFragment
+            .create(NEW_GOAL_ID,"", 1, GoalStatus.NOT_STARTED.name)
+            .show(parentFragmentManager, NewGoalDialogFragment.TAG)
     }
 
     private fun addNewTask() {

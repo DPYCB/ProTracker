@@ -9,4 +9,5 @@ interface ITaskRepository {
     fun updateTask(task: Task)
     fun removeAllTasks(): Any
     fun removeTask(taskId: Long)
+    fun getTask(taskId: Long): Task
 }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dpycb.protracker.R
 import com.dpycb.protracker.databinding.NewGoalItemBinding
 
-class NewGoalsAdapter(
+class GoalsAdapter(
     private val editGoal: (Int) -> Unit,
     private val addGoal: () -> Unit
 ): ListAdapter<GoalViewState, NewGoalViewHolder>(
@@ -39,7 +39,7 @@ class NewGoalsAdapter(
 }
 
 class NewGoalViewHolder(
-    private val view: View,
+   view: View,
     private val editGoal: (Int) -> Unit,
     private val addGoal: () -> Unit
 ): RecyclerView.ViewHolder(view) {
@@ -56,6 +56,7 @@ class NewGoalViewHolder(
             goalName.text = item.name
             weight.text = item.weight.toString()
             weight.isVisible = item.weight in (1..10)
+            statusLabel.text = item.status.name
         }
     }
 }

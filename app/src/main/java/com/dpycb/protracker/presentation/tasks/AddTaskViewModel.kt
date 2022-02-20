@@ -2,8 +2,8 @@ package com.dpycb.protracker.presentation.tasks
 
 import androidx.lifecycle.ViewModel
 import com.dpycb.protracker.data.Goal
+import com.dpycb.protracker.data.GoalStatus
 import com.dpycb.protracker.data.Task
-import com.dpycb.protracker.data.TasksRepository
 import com.dpycb.protracker.domain.ITaskRepository
 import io.reactivex.Flowable
 import io.reactivex.processors.BehaviorProcessor
@@ -28,12 +28,13 @@ class AddTaskViewModel @Inject constructor(
         tasksRepository.addTasks(listOf(task))
     }
 
-    fun addNewGoal(name: String, weight: Int) {
+    fun addNewGoal(name: String, weight: Int, status: GoalStatus) {
         val currentList = goalsProcessor.value ?: listOf(getFooterGoal())
         val newGoal = GoalViewState(
             id = currentList.size,
             name = name,
             weight = weight,
+            status = status
         )
         val resultList = listOf(newGoal).plus(currentList).sortedByDescending { it.id }
         goalsProcessor.onNext(resultList)
@@ -50,6 +51,11 @@ class AddTaskViewModel @Inject constructor(
         return goalsProcessor
     }
 
+    fun getGoalById(goalId: Int): GoalViewState? {
+        val currentGoals = goalsProcessor.value
+        return currentGoals?.find { it.id == goalId }
+    }
+
     private fun getGoalsForTask(): List<Goal> {
         return goalsProcessor.value
             ?.filter { it.weight in (1..10) }
@@ -61,9 +67,10 @@ class AddTaskViewModel @Inject constructor(
             } ?: listOf()
     }
 
+
     private fun getFooterGoal(): GoalViewState {
         return GoalViewState(
-            id = Int.MAX_VALUE,
+            id = AddTaskFragment.NEW_GOAL_ID,
             name = "+ Новая цель",
             weight = 0,
         )

@@ -1,12 +1,16 @@
 package com.dpycb.protracker.presentation.tasks
 
 import android.content.Context
+import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResultListener
 import com.dpycb.protracker.R
-import com.dpycb.protracker.utils.Utils
+import com.dpycb.protracker.data.GoalStatus
 import com.dpycb.protracker.data.Task
 import com.dpycb.protracker.databinding.TaskDetailsFragmentBinding
+import com.dpycb.protracker.utils.Utils
 import com.dpycb.protracker.utils.viewBinding
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,8 +30,11 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
             }
         }
     }
+
     private val binding by viewBinding(TaskDetailsFragmentBinding::bind)
     private val compositeDisposable = CompositeDisposable()
+    private val adapter = GoalsAdapter(::editGoal) {}
+    private var taskId = 0L
 
     @Inject
     lateinit var viewModel: TaskDetailsViewModel
@@ -37,14 +44,45 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
         super.onAttach(context)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            goalsList.adapter = adapter
+        }
+         taskId = arguments?.getLong(BUNDLE_TASK_ID) ?: 0L
+
+        setFragmentResultListener(NewGoalDialogFragment.EDIT_GOAL_REQUEST) { requestKey, bundle ->
+            val goalId = bundle.getInt(NewGoalDialogFragment.BUNDLE_GOAL_ID)
+            val goalName = bundle.getString(NewGoalDialogFragment.BUNDLE_GOAL_NAME) ?: ""
+            val goalWeight = bundle.getInt(NewGoalDialogFragment.BUNDLE_GOAL_WEIGHT)
+            val goalStatus = bundle.getString(NewGoalDialogFragment.BUNDLE_GOAL_STATUS)
+                ?: GoalStatus.NOT_STARTED.name
+            viewModel.editGoal(
+                taskId,
+                GoalViewState(
+                    id = goalId,
+                    name = goalName,
+                    weight = goalWeight,
+                    status = GoalStatus.valueOf(goalStatus)
+                )
+            )
+        }
+    }
+
     override fun onStart() {
         super.onStart()
-        val taskId = arguments?.getLong(BUNDLE_TASK_ID) ?: 0L
         viewModel
             .getTaskFlow(taskId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::updateTaskInfo)
+            .let(compositeDisposable::add)
+
+        viewModel
+            .getGoalsFlow(taskId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(adapter::submitList)
             .let(compositeDisposable::add)
     }
 
@@ -60,5 +98,15 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
             endDate.text = Utils.formatDateToString(task.endDate)
             progress.text = "${task.progress} %"
         }
+    }
+
+    private fun editGoal(goalId: Int) {
+        val currentGoal = viewModel.getGoalById(taskId, goalId)
+        NewGoalDialogFragment.create(
+            goalId,
+            currentGoal?.name ?: "",
+            currentGoal?.weight ?: 1,
+            currentGoal?.status?.name ?: GoalStatus.NOT_STARTED.name
+        ).show(parentFragmentManager, NewGoalDialogFragment.TAG)
     }
 }

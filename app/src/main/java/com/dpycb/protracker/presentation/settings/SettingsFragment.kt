@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.dpycb.protracker.R
 import com.dpycb.protracker.databinding.SettingsFragmentBinding
-import com.dpycb.protracker.utils.viewBinding
+import com.dpycb.utils.view.viewBinding
 import dagger.android.support.AndroidSupportInjection
 
 class SettingsFragment: Fragment(R.layout.settings_fragment) {
@@ -29,12 +29,12 @@ class SettingsFragment: Fragment(R.layout.settings_fragment) {
     private fun initSettingsList(): List<SettingsViewState> {
         return listOf(
             SettingsViewState(
-                R.drawable.ic_palette,
+                com.dpycb.uikit.R.drawable.ic_palette,
                 "Внешний вид",
                 ::onThemeSwitchClicked
             ),
             SettingsViewState(
-                R.drawable.ic_info,
+                com.dpycb.uikit.R.drawable.ic_info,
                 "О приложении",
                 ::onAboutClicked
             )

@@ -14,3 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ProTracker"
 include ':app'
+include ':tasks'
+include ':utils'
+include ':uikit'

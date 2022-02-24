@@ -38,7 +38,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+    implementation project(':tasks')
+    implementation project(':utils')
+    implementation project(':uikit')
 
     implementation rootProject.ext.viewModel
     implementation rootProject.ext.lifecycle_ext

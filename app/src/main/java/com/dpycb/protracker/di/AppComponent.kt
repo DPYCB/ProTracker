@@ -1,11 +1,8 @@
 package com.dpycb.protracker.di
 
 import android.content.Context
-import android.os.Build
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.dpycb.protracker.data.RoomDb
-import com.dpycb.protracker.data.TaskDao
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module

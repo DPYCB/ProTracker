@@ -1,0 +1,73 @@
+plugins {
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'com.android.library'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation project(':utils')
+
+    implementation rootProject.ext.viewModel
+    implementation rootProject.ext.lifecycle_ext
+    implementation rootProject.ext.live_data
+
+    implementation rootProject.ext.jetbrains_annotations
+    implementation rootProject.ext.kotlin_std_lib
+    implementation rootProject.ext.kotlin_reflect
+    implementation rootProject.ext.kotlin_serialization
+
+    implementation rootProject.ext.dagger2
+    implementation rootProject.ext.dagger2_android
+    implementation rootProject.ext.dagger2_android_support
+    kapt rootProject.ext.dagger2_android_processor
+    kapt rootProject.ext.dagger2_compiler
+
+    implementation rootProject.ext.rxJava2
+    implementation rootProject.ext.rxAndroid2
+    implementation rootProject.ext.rxKotlin2
+
+    implementation rootProject.ext.okhttp
+
+    implementation rootProject.ext.room
+    implementation rootProject.ext.room_rxJava
+    kapt rootProject.ext.room_compiler
+    kapt rootProject.ext.arch_persistence_room_compiler
+    implementation rootProject.ext.gson
+
+    implementation rootProject.ext.appcompat
+    implementation rootProject.ext.material_design
+    implementation rootProject.ext.constraint_layout
+    implementation rootProject.ext.fragment_nav
+    implementation rootProject.ext.ui_nav
+
+    testImplementation rootProject.ext.junit
+    androidTestImplementation rootProject.ext.android_junit
+    androidTestImplementation rootProject.ext.espresso
+}

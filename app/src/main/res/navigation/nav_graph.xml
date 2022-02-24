@@ -6,7 +6,7 @@
     app:startDestination="@id/nav_tasks">
     <fragment
         android:id="@+id/nav_tasks"
-        android:name="com.dpycb.protracker.presentation.tasks.TaskFragment"
+        android:name="com.dpycb.tasks.presentation.TaskFragment"
         android:label="Текущие задачи"
         tools:layout="@layout/task_fragment">
     </fragment>

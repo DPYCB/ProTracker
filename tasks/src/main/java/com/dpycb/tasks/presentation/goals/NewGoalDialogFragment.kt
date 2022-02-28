@@ -45,20 +45,26 @@ class NewGoalDialogFragment : DialogFragment(R.layout.edit_goal_dialog) {
             statusSpinner.adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                GoalStatus.values().map(GoalStatus::name),
+                GoalStatus.values().map(GoalStatus::statusName),
             )
             statusSpinner.setSelection(GoalStatus.valueOf(setGoalStatus).ordinal)
+
             btnApply.setOnClickListener {
                 setFragmentResult(
                     EDIT_GOAL_REQUEST, bundleOf(
                         BUNDLE_GOAL_ID to goalId,
                         BUNDLE_GOAL_NAME to goalNameEdit.text.toString(),
                         BUNDLE_GOAL_WEIGHT to weightSlider.value.toInt(),
-                        BUNDLE_GOAL_STATUS to statusSpinner.selectedItem.toString()
+                        BUNDLE_GOAL_STATUS to getSelectedItem(statusSpinner.selectedItem.toString())
                     )
                 )
                 dismiss()
             }
         }
+    }
+
+    private fun getSelectedItem(selectedItem: String): String {
+        return GoalStatus.values().find { it.statusName == selectedItem }?.name
+            ?: GoalStatus.NOT_STARTED.name
     }
 }

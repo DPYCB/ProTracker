@@ -22,9 +22,12 @@ class TaskFragmentViewModel @Inject constructor(
         return tasksRepository
             .getTasksFlow()
             .map { tasks ->
-                var totalProgress = 0
-                tasks.forEach { totalProgress += it.progress }
-                "Выполнено ${totalProgress/tasks.size.coerceAtLeast(1)}%"
+                val totalProgress = tasks.size.toFloat() * 100
+                val currentProgress =
+                    tasks.filter { it.progress > 0 }.sumOf { it.progress }.toFloat()
+                val progressToDisplay =
+                    currentProgress / totalProgress.coerceAtLeast(1f) * 100
+                "Выполнено ${progressToDisplay.toInt()}%"
             }
     }
 

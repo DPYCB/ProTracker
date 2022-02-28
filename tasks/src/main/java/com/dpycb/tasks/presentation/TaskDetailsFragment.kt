@@ -14,6 +14,7 @@ import com.dpycb.tasks.data.Task
 import com.dpycb.tasks.databinding.TaskDetailsFragmentBinding
 import com.dpycb.tasks.presentation.goals.GoalsAdapter
 import com.dpycb.tasks.presentation.goals.NewGoalDialogFragment
+import com.dpycb.utils.Utils
 import com.dpycb.utils.di.DaggerViewModelFactory
 import com.dpycb.utils.view.viewBinding
 import dagger.android.support.AndroidSupportInjection
@@ -90,8 +91,8 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
     private fun updateTaskInfo(task: Task) {
         binding.apply {
             taskName.text = task.name
-            startDate.text = com.dpycb.utils.Utils.formatDateToString(task.startDate)
-            endDate.text = com.dpycb.utils.Utils.formatDateToString(task.endDate)
+            startDate.text = Utils.formatDateToString(task.startDate)
+            endDate.text = Utils.formatDateToString(task.endDate)
             progress.text = "${task.progress} %"
         }
         adapter.submitList(task.goals)

@@ -21,7 +21,7 @@ class GoalsAdapter(
         }
 
         override fun areContentsTheSame(oldItem: Goal, newItem: Goal): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.hashCode() == newItem.hashCode()
         }
     }
 ) {

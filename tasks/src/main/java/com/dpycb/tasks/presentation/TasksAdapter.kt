@@ -19,7 +19,7 @@ class TasksAdapter(
         }
 
         override fun areContentsTheSame(oldItem: TaskViewState, newItem: TaskViewState): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.hashCode() == newItem.hashCode()
         }
     }
 ) {

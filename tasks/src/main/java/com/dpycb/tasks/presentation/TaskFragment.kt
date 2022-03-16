@@ -26,7 +26,7 @@ class TaskFragment : Fragment(R.layout.task_fragment) {
 
     @Inject
     lateinit var viewModelFactory: DaggerViewModelFactory
-    private val viewModel by viewModels<TaskFragmentViewModel> { viewModelFactory }
+    private val viewModel: TaskFragmentViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -64,7 +64,7 @@ class TaskFragment : Fragment(R.layout.task_fragment) {
     }
 
     private fun showTaskDetails(taskId: Long) {
-        TaskDetailsFragment.create(taskId).show(parentFragmentManager, TaskDetailsFragment.TAG)
+        TaskDetailsDialogFragment.create(taskId).show(parentFragmentManager, TaskDetailsDialogFragment.TAG)
     }
 
     private fun removeTask(taskId: Long): Boolean {
@@ -81,6 +81,6 @@ class TaskFragment : Fragment(R.layout.task_fragment) {
     }
 
     private fun addTask() {
-        AddTaskFragment().show(parentFragmentManager, AddTaskFragment.TAG)
+        AddTaskBSFragment().show(parentFragmentManager, AddTaskBSFragment.TAG)
     }
 }

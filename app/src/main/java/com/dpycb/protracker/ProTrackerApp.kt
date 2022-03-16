@@ -5,17 +5,11 @@ import androidx.room.Room
 import com.dpycb.protracker.data.RoomDb
 import com.dpycb.protracker.di.AppComponent
 import com.dpycb.protracker.di.DaggerAppComponent
+import com.dpycb.protracker.di.DaggerComponentsManager
 
 class ProTrackerApp : Application() {
-    private lateinit var appComponent: AppComponent
-
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent
-            .builder()
-            .context(this)
-            .build()
+        DaggerComponentsManager.instance.initAppComponent(this)
     }
-
-    fun getAppComponent(): AppComponent = appComponent
 }

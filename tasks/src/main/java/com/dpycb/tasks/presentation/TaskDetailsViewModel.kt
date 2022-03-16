@@ -1,5 +1,6 @@
 package com.dpycb.tasks.presentation
 
+import android.os.Build
 import androidx.lifecycle.ViewModel
 import com.dpycb.tasks.data.Goal
 import com.dpycb.tasks.data.GoalStatus
@@ -9,6 +10,7 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 import javax.inject.Inject
 
 class TaskDetailsViewModel @Inject constructor(
@@ -26,8 +28,7 @@ class TaskDetailsViewModel @Inject constructor(
             .observeOn(Schedulers.io())
             .subscribe {
                 val task = tasksRepository.getTask(taskId)
-                val newGoals = task.goals.toMutableList()
-                newGoals.removeIf { it.uid == goal.uid }
+                val newGoals = task.goals.filter { it.uid != goal.uid }.toMutableList()
                 newGoals.add(Goal(goal.uid, goal.name, goal.weight, goal.status))
 
                 tasksRepository.updateTask(

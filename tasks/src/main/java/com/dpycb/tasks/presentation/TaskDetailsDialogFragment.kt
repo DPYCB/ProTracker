@@ -14,8 +14,8 @@ import com.dpycb.tasks.data.Task
 import com.dpycb.tasks.databinding.TaskDetailsFragmentBinding
 import com.dpycb.tasks.presentation.goals.GoalsAdapter
 import com.dpycb.tasks.presentation.goals.NewGoalDialogFragment
-import com.dpycb.utils.Utils
 import com.dpycb.utils.di.DaggerViewModelFactory
+import com.dpycb.utils.formatDateToString
 import com.dpycb.utils.view.viewBinding
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Maybe
@@ -24,12 +24,12 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
+class TaskDetailsDialogFragment : DialogFragment(R.layout.task_details_fragment) {
     companion object {
         const val TAG = "TaskDetailsFragment"
         private const val BUNDLE_TASK_ID = "BundleTaskId"
-        fun create(taskId: Long): TaskDetailsFragment {
-            return TaskDetailsFragment().apply {
+        fun create(taskId: Long): TaskDetailsDialogFragment {
+            return TaskDetailsDialogFragment().apply {
                 arguments = bundleOf(
                     BUNDLE_TASK_ID to taskId
                 )
@@ -44,7 +44,7 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
 
     @Inject
     lateinit var viewModelFactory: DaggerViewModelFactory
-    private val viewModel by viewModels<TaskDetailsViewModel> { viewModelFactory }
+    private val viewModel: TaskDetailsViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -53,9 +53,7 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
-            goalsList.adapter = adapter
-        }
+        binding.goalsList.adapter = adapter
         taskId = arguments?.getLong(BUNDLE_TASK_ID) ?: 0L
 
         setFragmentResultListener(NewGoalDialogFragment.EDIT_GOAL_REQUEST) { requestKey, bundle ->
@@ -91,8 +89,8 @@ class TaskDetailsFragment : DialogFragment(R.layout.task_details_fragment) {
     private fun updateTaskInfo(task: Task) {
         binding.apply {
             taskName.text = task.name
-            startDate.text = Utils.formatDateToString(task.startDate)
-            endDate.text = Utils.formatDateToString(task.endDate)
+            startDate.text = formatDateToString(task.startDate)
+            endDate.text = formatDateToString(task.endDate)
             progress.text = "${task.progress} %"
         }
         adapter.submitList(task.goals)

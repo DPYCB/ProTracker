@@ -16,10 +16,10 @@ abstract class TaskFragmentModule {
     abstract fun getTaskFragment(): TaskFragment
 
     @ContributesAndroidInjector
-    abstract fun getAddTaskFragment(): AddTaskFragment
+    abstract fun getAddTaskFragment(): AddTaskBSFragment
 
     @ContributesAndroidInjector
-    abstract fun getTaskDetailsFragment(): TaskDetailsFragment
+    abstract fun getTaskDetailsFragment(): TaskDetailsDialogFragment
 }
 
 @Module

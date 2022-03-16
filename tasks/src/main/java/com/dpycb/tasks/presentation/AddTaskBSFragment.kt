@@ -14,8 +14,8 @@ import com.dpycb.tasks.data.GoalStatus
 import com.dpycb.tasks.databinding.AddTaskFragmentBinding
 import com.dpycb.tasks.presentation.goals.GoalsAdapter
 import com.dpycb.tasks.presentation.goals.NewGoalDialogFragment
-import com.dpycb.utils.Utils
 import com.dpycb.utils.di.DaggerViewModelFactory
+import com.dpycb.utils.formatDateToString
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.android.support.AndroidSupportInjection
@@ -24,7 +24,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class AddTaskFragment : BottomSheetDialogFragment() {
+class AddTaskBSFragment : BottomSheetDialogFragment() {
     companion object {
         const val TAG = "AddTaskBottomSheet"
         const val NEW_GOAL_ID = Int.MAX_VALUE
@@ -41,7 +41,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var viewModelFactory: DaggerViewModelFactory
-    private val viewModel by viewModels<AddTaskViewModel> { viewModelFactory }
+    private val viewModel: AddTaskViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -107,20 +107,22 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     private fun initDatePickers() {
         binding?.apply {
             startDateEdit.setOnClickListener {
-                val picker = getDatePicker()
-                picker.addOnPositiveButtonClickListener { date ->
-                    startDate = date
-                    startDateEdit.text = Utils.formatDateToString(date)
+                getDatePicker().apply {
+                    addOnPositiveButtonClickListener { date ->
+                        startDate = date
+                        startDateEdit.text = formatDateToString(date)
+                    }
+                    show(parentFragmentManager, "DATE_PICKER")
                 }
-                picker.show(parentFragmentManager, "DATE_PICKER")
             }
             endDateEdit.setOnClickListener {
-                val picker = getDatePicker()
-                picker.addOnPositiveButtonClickListener { date ->
-                    endDate = date
-                    endDateEdit.text = Utils.formatDateToString(date)
+                getDatePicker().apply {
+                    addOnPositiveButtonClickListener { date ->
+                        endDate = date
+                        endDateEdit.text = formatDateToString(date)
+                    }
+                    show(parentFragmentManager, "DATE_PICKER")
                 }
-                picker.show(parentFragmentManager, "DATE_PICKER")
             }
         }
     }

@@ -3,7 +3,7 @@ package com.dpycb.tasks.presentation
 import androidx.lifecycle.ViewModel
 import com.dpycb.tasks.data.Task
 import com.dpycb.tasks.domain.ITaskRepository
-import com.dpycb.utils.Utils
+import com.dpycb.utils.formatDateToString
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -40,7 +40,7 @@ class TaskFragmentViewModel @Inject constructor(
             this.uid,
             "${this.progress}%",
             this.name,
-            Utils.formatDateToString(this.endDate)
+            formatDateToString(this.endDate)
         )
     }
 }

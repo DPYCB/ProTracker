@@ -7,7 +7,9 @@ import com.dpycb.tasks.data.Task
 import com.dpycb.tasks.domain.ITaskRepository
 import io.reactivex.Flowable
 import io.reactivex.processors.BehaviorProcessor
+import java.util.*
 import javax.inject.Inject
+import kotlin.reflect.jvm.internal.impl.utils.CollectionsKt
 
 class AddTaskViewModel @Inject constructor(
     private val tasksRepository: ITaskRepository
@@ -41,10 +43,10 @@ class AddTaskViewModel @Inject constructor(
     }
 
     fun editGoal(editedGoal: Goal) {
-        val currentList = goalsProcessor.value?.toMutableList() ?: return
-        currentList.removeIf { it.uid == editedGoal.uid }
-        currentList.add(editedGoal)
-        goalsProcessor.onNext(currentList.sortedBy { it.uid })
+        val currentList = goalsProcessor.value ?: return
+        val filteredList = currentList.filter { it.uid != editedGoal.uid }.toMutableList()
+        filteredList.add(editedGoal)
+        goalsProcessor.onNext(filteredList.sortedBy { it.uid })
     }
 
     fun getGoalsFlow(): Flowable<List<Goal>> {
@@ -64,7 +66,7 @@ class AddTaskViewModel @Inject constructor(
 
     private fun getFooterGoal(): Goal {
         return Goal(
-            uid = AddTaskFragment.NEW_GOAL_ID,
+            uid = AddTaskBSFragment.NEW_GOAL_ID,
             name = "+ Новая цель",
             weight = 0,
         )

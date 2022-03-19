@@ -107,22 +107,22 @@ class AddTaskBSFragment : BottomSheetDialogFragment() {
     private fun initDatePickers() {
         binding?.apply {
             startDateEdit.setOnClickListener {
-                getDatePicker().apply {
+                val picker = getDatePicker().apply {
                     addOnPositiveButtonClickListener { date ->
                         startDate = date
                         startDateEdit.text = formatDateToString(date)
                     }
-                    show(parentFragmentManager, "DATE_PICKER")
                 }
+                picker.show(parentFragmentManager, "DATE_PICKER")
             }
             endDateEdit.setOnClickListener {
-                getDatePicker().apply {
+                val picker = getDatePicker().apply {
                     addOnPositiveButtonClickListener { date ->
                         endDate = date
                         endDateEdit.text = formatDateToString(date)
                     }
-                    show(parentFragmentManager, "DATE_PICKER")
                 }
+                picker.show(parentFragmentManager, "DATE_PICKER")
             }
         }
     }

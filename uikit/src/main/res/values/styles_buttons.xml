@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textAppearance">@style/TextRoboto.500</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
+    <style name="Button.Primary" parent="Button">
+        <item name="backgroundTint">?colorSurfaceInverse</item>
+        <item name="android:textColor">?colorOnSurfaceInverse</item>
+        <item name="rippleColor">?colorPrimary</item>
+    </style>
+
+    <style name="Button.Secondary" parent="Button">
+        <item name="strokeColor">?colorOnSurfaceVariant</item>
+        <item name="android:textColor">?colorSurfaceVariant</item>
+        <item name="rippleColor">?colorOnSurfaceVariant</item>
+    </style>
+</resources>

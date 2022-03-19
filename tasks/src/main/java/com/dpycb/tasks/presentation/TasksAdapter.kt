@@ -50,7 +50,6 @@ class TaskItemViewHolder(
             root.setOnLongClickListener { onItemLongClick(item.taskId) }
             taskProgress.text = item.progress
             taskTitle.text = item.title
-            taskEndDate.text = item.endDate
         }
     }
 }

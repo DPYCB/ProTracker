@@ -1,11 +1,26 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Theme.ProTracker" parent="Theme.MaterialComponents.DayNight">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
-        <!-- Customize your theme here. -->
+
+    <style name="Theme.ProTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white_100</item>
+        <item name="colorOnPrimary">@color/black_100</item>
+
+        <item name="colorSurface">@color/white_200</item>
+        <item name="colorSurfaceInverse">@color/grey_200</item>
+        <item name="colorOnSurfaceInverse">@color/dark_blue</item>
+        <item name="colorSurfaceVariant">@color/black_200</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
+
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorOnBackground">@color/black_100</item>
+        <item name="colorOnSurface">@color/black_100</item>
+
+        <item name="colorSecondary">@color/purple</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="colorAccent">@color/red</item>
+
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.ProTracker.NoActionBar">

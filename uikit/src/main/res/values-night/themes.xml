@@ -1,0 +1,33 @@
+<resources>
+
+    <style name="Theme.ProTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/black_200</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSurface">@color/black_300</item>
+        <item name="colorSurfaceInverse">@color/white</item>
+        <item name="colorOnSurfaceInverse">@color/dark_blue</item>
+        <item name="colorSurfaceVariant">@color/grey_100</item>
+        <item name="colorOnSurfaceVariant">@color/grey_200</item>
+
+        <item name="android:colorBackground">@color/black_100</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <item name="colorSecondary">@color/cyan</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="colorAccent">@color/red</item>
+
+        <item name="android:statusBarColor">@color/black_100</item>
+    </style>
+
+    <style name="Theme.ProTracker.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ProTracker.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="Theme.ProTracker.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+</resources>

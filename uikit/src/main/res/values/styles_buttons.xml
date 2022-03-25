@@ -9,14 +9,14 @@
     </style>
 
     <style name="Button.Primary" parent="Button">
-        <item name="backgroundTint">?colorSurfaceInverse</item>
-        <item name="android:textColor">?colorOnSurfaceInverse</item>
-        <item name="rippleColor">?colorPrimary</item>
+        <item name="backgroundTint">?colorPrimary</item>
+        <item name="android:textColor">?colorOnPrimary</item>
+        <item name="rippleColor">?colorOnPrimary</item>
     </style>
 
     <style name="Button.Secondary" parent="Button">
-        <item name="strokeColor">?colorOnSurfaceVariant</item>
-        <item name="android:textColor">?colorSurfaceVariant</item>
-        <item name="rippleColor">?colorOnSurfaceVariant</item>
+        <item name="strokeColor">?colorOnSurface</item>
+        <item name="android:textColor">?colorOnSurface</item>
+        <item name="rippleColor">?colorOnSurface</item>
     </style>
 </resources>

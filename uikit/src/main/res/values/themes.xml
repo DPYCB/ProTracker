@@ -1,25 +1,21 @@
 <resources>
 
     <style name="Theme.ProTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/white_100</item>
-        <item name="colorOnPrimary">@color/black_100</item>
+        <item name="colorPrimary">@color/primary_day</item>
+        <item name="colorOnPrimary">@color/on_primary_day</item>
 
-        <item name="colorSurface">@color/white_200</item>
-        <item name="colorSurfaceInverse">@color/grey_200</item>
-        <item name="colorOnSurfaceInverse">@color/dark_blue</item>
-        <item name="colorSurfaceVariant">@color/black_200</item>
-        <item name="colorOnSurfaceVariant">@color/white</item>
+        <item name="colorSurface">@color/surface_day</item>
+        <item name="colorOnSurface">@color/on_surface_day</item>
 
-        <item name="android:colorBackground">@color/white</item>
-        <item name="colorOnBackground">@color/black_100</item>
-        <item name="colorOnSurface">@color/black_100</item>
+        <item name="android:colorBackground">@color/background_day</item>
+        <item name="colorOnBackground">@color/on_background_high_day</item>
 
-        <item name="colorSecondary">@color/purple</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/secondary_day</item>
+        <item name="colorOnSecondary">@color/on_secondary_day</item>
 
-        <item name="colorAccent">@color/red</item>
+        <item name="colorAccent">@color/accent_day</item>
 
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/background_day</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 

@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="black_100">#060201</color>
-    <color name="black_200">#262626</color>
-    <color name="black_300">#252A34</color>
+    <color name="background_night">#060201</color>
+    <color name="on_background_high_night">#FFFFFF</color>
+    <color name="on_background_mid_night">#B3FFFFFF</color>
 
-    <color name="grey_100">#C4C4C4</color>
-    <color name="grey_200">#C2C2C2</color>
+    <color name="background_day">#FFFFFF</color>
+    <color name="on_background_high_day">#000000</color>
+    <color name="on_background_mid_day">#B3000000</color>
 
-    <color name="cyan">#00F0FF</color>
-    <color name="cyan_A30">#4D00F0FF</color>
+    <color name="primary_night">#FFFFFF</color>
+    <color name="on_primary_night">#252A34</color>
 
-    <color name="purple">#A52D89</color>
-    <color name="purple_A30">#4DA52D89</color>
+    <color name="primary_day">#000000</color>
+    <color name="on_primary_day">#C4C4C4</color>
+    
+    <color name="secondary_night">#00F0FF</color>
+    <color name="secondary_blur_night">#4D00F0FF</color>
+    <color name="on_secondary_night">#FFFFFF</color>
 
-    <color name="red">#B22828</color>
-    <color name="dark_blue">#252A34</color>
+    <color name="secondary_day">#A52EBA</color>
+    <color name="secondary_blur_day">#4DA52EBA</color>
+    <color name="on_secondary_day">#FFFFFF</color>
 
-    <color name="white">#FFFFFFFF</color>
-    <color name="white_100">#F4F4F5</color>
-    <color name="white_200">#F2F2F2</color>
+    <color name="surface_night">#262626</color>
+    <color name="on_surface_night">#FFFFFF</color>
+    <color name="on_surface_mid_night">#C4C4C4</color>
+
+    <color name="surface_day">#EEEEEE</color>
+    <color name="on_surface_day">#2B2E31</color>
+    <color name="on_surface_mid_day">#B32B2E31</color>
+
+    <color name="accent_night">#8A1F1F</color>
+    <color name="on_accent_night">#FFFFFF</color>
+
+    <color name="accent_day">#B22828</color>
+    <color name="on_accent_day">#FFFFFF</color>
 </resources>

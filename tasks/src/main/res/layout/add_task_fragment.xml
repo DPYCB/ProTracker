@@ -93,6 +93,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_task"
         android:text="Добавить задачу"
+        style="@style/Button.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
